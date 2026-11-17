@@ -2,11 +2,11 @@ const { total } = require('../../src/panier');
 
 describe('total()', () => {
   test('calcule le total du panier', () => {
-    // Arrange : prÈparer les donnÈes
+    // Arrange : pr√©parer les donn√©es
     const items = [{ prix: 10, qte: 2 }, { prix: 5, qte: 1 }];
-    // Act : exÈcuter la fonction
+    // Act : ex√©cuter la fonction
     const resultat = total(items);
-    // Assert : vÈrifier le rÈsultat
+    // Assert : v√©rifier le r√©sultat
     expect(resultat).toBe(25);
   });
 
@@ -14,8 +14,13 @@ describe('total()', () => {
     expect(total([])).toBe(0);
   });
 
-  test('ignore une ligne dont la quantitÈ est 0', () => {
+  test('ignore une ligne dont la quantit√© est 0', () => {
     const items = [{ prix: 10, qte: 0 }, { prix: 5, qte: 2 }];
     expect(total(items)).toBe(10);
+  });
+
+  test('refuse un prix n√©gatif', () => {
+    const items = [{ prix: -5, qte: 1 }];
+    expect(() => total(items)).toThrow('Prix n√©gatif');
   });
 });
